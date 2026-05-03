@@ -1,42 +1,64 @@
 // Import required packages
-const express = require('express')              // Express framework
-const mongoose = require('mongoose')            // MongoDB connection
-const cors = require('cors')                    // CORS middleware
-require('dotenv').config()                      // Load .env variables
+const express = require('express')
+const mongoose = require('mongoose')
+const cors = require('cors')
+require('dotenv').config()
 
 const app = express()
 
-// Middleware
-app.use(express.json()) // Parse JSON requests
+// ✅ Middleware
+app.use(express.json())
 
-// ✅ FIXED CORS (Production Safe)
+// ✅ PROPER CORS (FINAL FIX)
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://smart-task-manager-drab.vercel.app"
+]
+
 app.use(cors({
-  origin: [
-    "http://localhost:5173", // local frontend
-    "https://smart-task-manager-drab.vercel.app" // deployed frontend
-  ],
-  methods: ["GET", "POST", "PUT", "DELETE"],
+  origin: function (origin, callback) {
+    // allow requests with no origin (like Postman)
+    if (!origin) return callback(null, true)
+
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true)
+    } else {
+      callback(new Error("Not allowed by CORS"))
+    }
+  },
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true
 }))
 
-// ❌ REMOVED: app.options('*', cors())  (this was crashing your server)
+// ✅ VERY IMPORTANT (fix preflight issues)
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", req.headers.origin)
+  res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS")
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization")
+  res.header("Access-Control-Allow-Credentials", "true")
 
-// Import routes
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(200)
+  }
+  next()
+})
+
+// Routes
 const authRoutes = require('./routes/authRoutes')
 const taskRoutes = require('./routes/taskRoutes')
 const userRoutes = require('./routes/userRoutes')
 
-// Use routes
 app.use('/api/auth', authRoutes)
 app.use('/api/tasks', taskRoutes)
 app.use('/api/user', userRoutes)
 
-// ✅ Health check route
+// Health check
 app.get('/', (req, res) => {
   res.send('API is running 🚀')
 })
 
-// Connect to MongoDB
+// MongoDB
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('✅ MongoDB Connected'))
   .catch(err => {
@@ -44,7 +66,7 @@ mongoose.connect(process.env.MONGO_URI)
     process.exit(1)
   })
 
-// ✅ Use dynamic port for Render
+// Port
 const PORT = process.env.PORT || 5000
 
 app.listen(PORT, () => {

@@ -1,7 +1,14 @@
 import axios from 'axios'
 
-// Ensure baseURL always ends with a slash for proper relative path resolution
-const rawBaseURL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api'
+// Get raw URL from env
+let rawBaseURL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api'
+
+// Resiliency: Ensure the URL ends with /api if it's missing (common deployment mistake)
+if (!rawBaseURL.includes('/api')) {
+  rawBaseURL = rawBaseURL.endsWith('/') ? `${rawBaseURL}api` : `${rawBaseURL}/api`
+}
+
+// Ensure it ends with a trailing slash for relative pathing
 const baseURL = rawBaseURL.endsWith('/') ? rawBaseURL : `${rawBaseURL}/`
 
 const API = axios.create({

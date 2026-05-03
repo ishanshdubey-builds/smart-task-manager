@@ -10,7 +10,7 @@ export default function CalendarView() {
   const [loadingSelected, setLoadingSelected] = useState(false)
 
   useEffect(() => {
-    API.get('/tasks').then(res => {
+    API.get('/api/tasks').then(res => {
       setTasks(res.data)
       setLoading(false)
     }).catch(err => {
@@ -35,7 +35,7 @@ export default function CalendarView() {
     const dd = String(clickedDate.getDate()).padStart(2, '0')
     
     try {
-      const res = await API.get(`/tasks/by-date?date=${yyyy}-${mm}-${dd}`)
+      const res = await API.get(`/api/tasks/by-date?date=${yyyy}-${mm}-${dd}`)
       setSelectedTasks(res.data)
     } catch (err) {
       console.error(err)

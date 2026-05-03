@@ -8,7 +8,7 @@ export default function Profile() {
   const [message, setMessage] = useState('')
 
   useEffect(() => {
-    API.get('/user/me')
+    API.get('/api/user/me')
       .then(res => {
         setProfile(res.data)
         setLoading(false)
@@ -28,7 +28,7 @@ export default function Profile() {
     setSaving(true)
     setMessage('')
     try {
-      const res = await API.put('/user/update', {
+      const res = await API.put('/api/user/update', {
         name: profile.name,
         bio: profile.bio,
         avatar: profile.avatar

@@ -129,9 +129,9 @@ export default function Dashboard() {
     try {
       setLoading(true)
       const [s, p, t] = await Promise.all([
-        API.get('/tasks/stats'),
-        API.get('/tasks/productivity'),
-        API.get('/tasks')
+        API.get('/api/tasks/stats'),
+        API.get('/api/tasks/productivity'),
+        API.get('/api/tasks')
       ])
       setStats(s.data || { daily: 0, weekly: 0, monthly: 0, completed: 0 })
       setProductivity(p.data?.productivity || 0)
@@ -155,13 +155,13 @@ export default function Dashboard() {
 
     setCreatingTask(true)
     try {
-      const res = await API.post('/tasks', newTask)
+      const res = await API.post('/api/tasks', newTask)
       setTasks([res.data, ...tasks])
       setNewTask({ title: '', type: 'personal', assignedToEmail: '', dueDate: todayStr })
       
       const [s, p] = await Promise.all([
-        API.get('/tasks/stats'),
-        API.get('/tasks/productivity')
+        API.get('/api/tasks/stats'),
+        API.get('/api/tasks/productivity')
       ])
       setStats(s.data)
       setProductivity(p.data.productivity)
@@ -174,12 +174,12 @@ export default function Dashboard() {
 
   const handleToggleComplete = async (taskId, currentStatus) => {
     try {
-      const res = await API.put(`/tasks/${taskId}`, { completed: !currentStatus })
+      const res = await API.put(`/api/tasks/${taskId}`, { completed: !currentStatus })
       setTasks(tasks.map(t => t._id === taskId ? res.data : t))
       
       const [s, p] = await Promise.all([
-        API.get('/tasks/stats'),
-        API.get('/tasks/productivity')
+        API.get('/api/tasks/stats'),
+        API.get('/api/tasks/productivity')
       ])
       setStats(s.data)
       setProductivity(p.data.productivity)
@@ -190,12 +190,12 @@ export default function Dashboard() {
 
   const handleDeleteTask = async (taskId) => {
     try {
-      await API.delete(`/tasks/${taskId}`)
+      await API.delete(`/api/tasks/${taskId}`)
       setTasks(tasks.filter(t => t._id !== taskId))
       
       const [s, p] = await Promise.all([
-        API.get('/tasks/stats'),
-        API.get('/tasks/productivity')
+        API.get('/api/tasks/stats'),
+        API.get('/api/tasks/productivity')
       ])
       setStats(s.data)
       setProductivity(p.data.productivity)

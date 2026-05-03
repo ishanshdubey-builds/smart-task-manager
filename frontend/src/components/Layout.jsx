@@ -10,7 +10,7 @@ export default function Layout({ children }) {
   })
 
   useEffect(() => {
-    API.get('/user/me').then(res => {
+    API.get('/api/user/me').then(res => {
       setUser(res.data)
       localStorage.setItem('user', JSON.stringify(res.data))
       localStorage.setItem('streak', res.data.streak)

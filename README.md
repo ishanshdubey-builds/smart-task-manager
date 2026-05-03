@@ -2,6 +2,8 @@
 
 A full-stack productivity web application to manage tasks, track progress, and improve daily productivity.
 
+Live: https://smart-task-manager-drab.vercel.app/
+
 ---
 
 ## ✨ Features

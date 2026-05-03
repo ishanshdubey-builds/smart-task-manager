@@ -19,7 +19,7 @@ app.use(cors({
 }))
 
 // 🔥 THIS IS THE MOST IMPORTANT LINE
-app.options("*", cors())
+app.options("/*", cors())
 
 app.use('/api/auth', require('./routes/authRoutes'))
 app.use('/api/tasks', require('./routes/taskRoutes'))

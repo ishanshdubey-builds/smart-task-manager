@@ -9,7 +9,7 @@ const app = express()
 // Middleware
 app.use(express.json()) // Parse JSON requests
 
-// ✅ FIXED CORS (IMPORTANT)
+// ✅ FIXED CORS (Production Safe)
 app.use(cors({
   origin: [
     "http://localhost:5173", // local frontend
@@ -19,8 +19,7 @@ app.use(cors({
   credentials: true
 }))
 
-// ✅ Optional: Handle preflight requests
-app.options('*', cors())
+// ❌ REMOVED: app.options('*', cors())  (this was crashing your server)
 
 // Import routes
 const authRoutes = require('./routes/authRoutes')
@@ -32,7 +31,7 @@ app.use('/api/auth', authRoutes)
 app.use('/api/tasks', taskRoutes)
 app.use('/api/user', userRoutes)
 
-// ✅ Health check route (VERY USEFUL)
+// ✅ Health check route
 app.get('/', (req, res) => {
   res.send('API is running 🚀')
 })

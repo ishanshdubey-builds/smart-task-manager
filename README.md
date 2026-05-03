@@ -30,25 +30,6 @@ A full-stack productivity web application to manage tasks, track progress, and i
 
 ---
 
-## 📂 Project Structure
-
-smart-task-manager/
-│
-├── backend/
-│ ├── controllers/
-│ ├── models/
-│ ├── routes/
-│ └── server.js
-│
-├── frontend/
-│ ├── src/
-│ └── components/
-│
-└── .gitignore
-
-
----
-
 ## ⚙️ Setup Instructions
 
 ### 1. Clone the repository

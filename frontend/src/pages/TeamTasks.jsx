@@ -9,7 +9,7 @@ export default function TeamTasks() {
   const myId = JSON.parse(atob(localStorage.getItem('token').split('.')[1])).id
 
   useEffect(() => {
-    API.get('/api/tasks')
+    API.get('tasks')
       .then(res => {
         // Filter out purely personal tasks not involving other users.
         // Wait, the API returns tasks where userId = me OR assignedTo = me.
@@ -30,7 +30,7 @@ export default function TeamTasks() {
 
   const toggleComplete = async (taskId, currentStatus) => {
     try {
-      const res = await API.put(`/api/tasks/${taskId}`, { completed: !currentStatus })
+      const res = await API.put(`tasks/${taskId}`, { completed: !currentStatus })
       setTasks(tasks.map(t => t._id === taskId ? res.data : t))
     } catch (err) {
       console.error(err)

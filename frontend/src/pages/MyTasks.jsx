@@ -53,7 +53,7 @@ export default function MyTasks() {
 
   const loadTasks = async () => {
     try {
-      const res = await API.get('/api/tasks')
+      const res = await API.get('tasks')
       // Only personal tasks
       const myId = JSON.parse(atob(localStorage.getItem('token').split('.')[1])).id
       setTasks(res.data.filter(t => t.userId === myId && t.type === 'personal'))
@@ -79,7 +79,7 @@ export default function MyTasks() {
         type: 'personal',
         dueDate: newTask.dueDate || todayStr
       }
-      const res = await API.post('/api/tasks', payload)
+      const res = await API.post('tasks', payload)
       setTasks([res.data, ...tasks])
       setNewTask({ title: '', dueDate: todayStr })
     } catch (err) {
@@ -91,7 +91,7 @@ export default function MyTasks() {
 
   const toggleComplete = async (taskId, currentStatus) => {
     try {
-      const res = await API.put(`/api/tasks/${taskId}`, { completed: !currentStatus })
+      const res = await API.put(`tasks/${taskId}`, { completed: !currentStatus })
       setTasks(tasks.map(t => t._id === taskId ? res.data : t))
     } catch (err) {
       console.error(err)
@@ -100,7 +100,7 @@ export default function MyTasks() {
 
   const deleteTask = async (taskId) => {
     try {
-      await API.delete(`/api/tasks/${taskId}`)
+      await API.delete(`tasks/${taskId}`)
       setTasks(tasks.filter(t => t._id !== taskId))
     } catch (err) {
       console.error(err)

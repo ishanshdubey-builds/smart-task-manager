@@ -10,8 +10,8 @@ export default function Analytics() {
 
   useEffect(() => {
     Promise.all([
-      API.get('/api/tasks/stats'),
-      API.get('/api/tasks/productivity')
+      API.get('tasks/stats'),
+      API.get('tasks/productivity')
     ]).then(([s, p]) => {
       setStats(s.data)
       setProductivity(p.data.productivity)

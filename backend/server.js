@@ -10,21 +10,12 @@ const app = express()
 app.use(express.json())
 
 // ✅ PROPER CORS
-const allowedOrigins = [
-  "http://localhost:5173",
-  "https://smart-task-manager-drab.vercel.app"
-]
-
 app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true)
-    } else {
-      callback(new Error("Not allowed by CORS"))
-    }
-  },
-  credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  origin: [
+    "http://localhost:5173",
+    "https://smart-task-manager-drab.vercel.app"
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"]
 }))
 

@@ -1,4 +1,3 @@
-// Import required packages
 const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
@@ -6,28 +5,26 @@ require('dotenv').config()
 
 const app = express()
 
-// ✅ Middleware
+// Middleware
 app.use(express.json())
 
-// ✅ PROPER CORS
+// ✅ CORS (FINAL)
 app.use(cors({
   origin: [
     "http://localhost:5173",
     "https://smart-task-manager-drab.vercel.app"
   ],
-  methods: ["GET", "POST", "PUT", "DELETE"],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"]
 }))
 
+// ✅ FIX PRE-FLIGHT REQUESTS
+app.options('*', cors())
 
 // Routes
-const authRoutes = require('./routes/authRoutes')
-const taskRoutes = require('./routes/taskRoutes')
-const userRoutes = require('./routes/userRoutes')
-
-app.use('/api/auth', authRoutes)
-app.use('/api/tasks', taskRoutes)
-app.use('/api/user', userRoutes)
+app.use('/api/auth', require('./routes/authRoutes'))
+app.use('/api/tasks', require('./routes/taskRoutes'))
+app.use('/api/user', require('./routes/userRoutes'))
 
 // Health check
 app.get('/', (req, res) => {
@@ -42,7 +39,7 @@ mongoose.connect(process.env.MONGO_URI)
     process.exit(1)
   })
 
-// Port
+// Port (IMPORTANT for Render)
 const PORT = process.env.PORT || 5000
 
 app.listen(PORT, () => {

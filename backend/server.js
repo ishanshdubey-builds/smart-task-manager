@@ -18,8 +18,7 @@ app.use(cors({
   allowedHeaders: ["Content-Type", "Authorization"]
 }))
 
-// ✅ FIX PRE-FLIGHT REQUESTS
-app.options('*', cors())
+
 
 // Routes
 app.use('/api/auth', require('./routes/authRoutes'))

@@ -13,7 +13,7 @@ app.use(express.json()) // Parse JSON requests
 app.use(cors({
   origin: [
     "http://localhost:5173", // local frontend
-    "https://smart-task-manager-drub.vercel.app" // deployed frontend
+    "https://smart-task-manager-drab.vercel.app" // deployed frontend
   ],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true

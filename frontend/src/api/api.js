@@ -1,16 +1,8 @@
 import axios from 'axios'
 
-// Vercel's VITE_API_URL overrides this fallback at build time.
-// Keep the fallback aligned with the current Render backend URL.
-let rawBaseURL = import.meta.env.VITE_API_URL || 'https://smart-task-manager-backend-rn4t.onrender.com/api'
-
-// Ensure the URL includes /api.
-if (!rawBaseURL.includes('/api')) {
-  rawBaseURL = rawBaseURL.endsWith('/') ? `${rawBaseURL}api` : `${rawBaseURL}/api`
-}
-
-// Ensure it ends with a trailing slash for relative pathing.
-const baseURL = rawBaseURL.endsWith('/') ? rawBaseURL : `${rawBaseURL}/`
+// Use the current deployed Render API directly to avoid a stale Vercel
+// VITE_API_URL value continuing to point at the retired backend.
+const baseURL = 'https://smart-task-manager-backend-rn4t.onrender.com/api/'
 
 const API = axios.create({
   baseURL,

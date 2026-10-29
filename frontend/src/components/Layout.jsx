@@ -17,16 +17,26 @@ export default function Layout({ children }) {
     }).catch(err => console.log(err))
   }, [])
 
+  useEffect(() => {
+    const handleProfileUpdate = () => {
+      try {
+        const savedUser = localStorage.getItem('user')
+        if (savedUser) setUser(JSON.parse(savedUser))
+      } catch (error) {
+        console.error('Could not refresh user profile in header:', error)
+      }
+    }
+    window.addEventListener('profile-updated', handleProfileUpdate)
+    return () => window.removeEventListener('profile-updated', handleProfileUpdate)
+  }, [])
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-[#0B0F19] text-gray-900 dark:text-white transition-colors duration-300">
       <Sidebar streak={user?.streak || 1} />
-      
-      {/* Main Content Area */}
       <div className="ml-64 min-h-screen flex flex-col">
         <div className="p-6">
           <Header user={user} setUser={setUser} />
         </div>
-        
         <main className="p-6 pt-0 overflow-y-auto flex-1 custom-scrollbar">
           {children}
         </main>

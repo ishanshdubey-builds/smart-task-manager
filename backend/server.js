@@ -32,7 +32,8 @@ app.use(cors({
   optionsSuccessStatus: 204,
 }))
 
-app.use(express.json())
+// Avatars are resized/compressed in the browser before being sent as data URLs.
+app.use(express.json({ limit: '2mb' }))
 
 app.use('/api/auth', require('./routes/authRoutes'))
 app.use('/api/tasks', require('./routes/taskRoutes'))

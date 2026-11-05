@@ -121,18 +121,20 @@ export default function Profile() {
 
   return (
     <div className="max-w-2xl mx-auto">
-      <div className="bg-white dark:bg-white/5 backdrop-blur-lg border border-gray-200 dark:border-white/10 rounded-3xl p-8 shadow-sm">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">User Profile</h2>
+      <p className="eyebrow mb-3">Account / personal details</p>
+      <h2 className="editorial-display mb-7 text-4xl dark:text-[#eeece6]">Your profile</h2>
+      <div className="bg-transparent border-y border-black/10 dark:border-white/10 p-8 shadow-sm">
+        <h2 className="text-2xl font-bold text-[#242320] dark:text-[#eeece6] mb-6">User Profile</h2>
 
         {message && (
-          <div className={`p-4 rounded-xl mb-6 font-medium ${message.includes('Error') || message.includes('Please') || message.includes('could not') || message.includes('Could not') ? 'bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-400' : 'bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400'}`}>
+          <div className={`p-4 rounded-sm mb-6 font-medium ${message.includes('Error') || message.includes('Please') || message.includes('could not') || message.includes('Could not') ? 'bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-400' : 'bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400'}`}>
             {message}
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 mb-8">
-            <div className="w-28 h-28 shrink-0 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center font-bold text-4xl text-white shadow-lg overflow-hidden border-4 border-white dark:border-gray-800">
+            <div className="w-28 h-28 shrink-0 rounded-sm bg-gradient-to-br from-[#b9a47b] to-[#77664a] flex items-center justify-center font-bold text-4xl text-white shadow-lg overflow-hidden border-4 border-white dark:border-gray-800">
               {profile.avatar ? (
                 <img src={profile.avatar} alt="Profile avatar preview" className="w-full h-full object-cover" />
               ) : (
@@ -146,12 +148,12 @@ export default function Profile() {
                 type="file"
                 accept="image/png,image/jpeg,image/webp,image/gif"
                 onChange={handleAvatarUpload}
-                className="block w-full text-sm text-gray-600 dark:text-gray-300 file:mr-4 file:rounded-xl file:border-0 file:bg-purple-600 file:px-4 file:py-3 file:font-semibold file:text-white hover:file:bg-purple-700 file:cursor-pointer"
+                className="block w-full text-sm text-gray-600 dark:text-gray-300 file:mr-4 file:rounded-sm file:border-0 file:bg-purple-600 file:px-4 file:py-3 file:font-semibold file:text-white hover:file:bg-purple-700 file:cursor-pointer"
               />
-              <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
+              <p className="mt-2 text-xs text-zinc-500 dark:text-zinc-400">
                 Choose an image from your device (JPG, PNG, WebP, or GIF; up to 5 MB). It will be resized before saving.
               </p>
-              {fileName && <p className="mt-1 text-xs text-purple-600 dark:text-purple-400">Selected: {fileName}</p>}
+              {fileName && <p className="mt-1 text-xs text-[#9d855c] dark:text-[#c9b58e]">Selected: {fileName}</p>}
               {profile.avatar && (
                 <button type="button" onClick={removeAvatar} className="mt-3 text-sm font-semibold text-red-500 hover:text-red-600">
                   Remove avatar
@@ -163,21 +165,21 @@ export default function Profile() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Full Name</label>
-              <input type="text" name="name" value={profile.name || ''} onChange={handleChange} className="w-full p-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl focus:ring-2 focus:ring-purple-500 outline-none transition-all dark:text-white" required />
+              <input type="text" name="name" value={profile.name || ''} onChange={handleChange} className="w-full p-3 bg-white/[0.025] dark:bg-white/[0.025] border border-black/10 dark:border-white/10 rounded-sm focus:ring-1 focus:ring-[#b9a47b] outline-none transition-all dark:text-white" required />
             </div>
             <div>
               <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Email Address</label>
-              <input type="email" value={profile.email || ''} disabled className="w-full p-3 bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-white/5 rounded-xl text-gray-500 cursor-not-allowed outline-none" />
+              <input type="email" value={profile.email || ''} disabled className="w-full p-3 bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-white/5 rounded-sm text-gray-500 cursor-not-allowed outline-none" />
             </div>
           </div>
 
           <div>
             <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Bio / Motivation</label>
-            <textarea name="bio" value={profile.bio || ''} onChange={handleChange} rows="4" placeholder="What motivates you to get things done?" className="w-full p-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl focus:ring-2 focus:ring-purple-500 outline-none transition-all dark:text-white resize-none"></textarea>
+            <textarea name="bio" value={profile.bio || ''} onChange={handleChange} rows="4" placeholder="What motivates you to get things done?" className="w-full p-3 bg-white/[0.025] dark:bg-white/[0.025] border border-black/10 dark:border-white/10 rounded-sm focus:ring-1 focus:ring-[#b9a47b] outline-none transition-all dark:text-white resize-none"></textarea>
           </div>
 
           <div className="flex justify-end pt-4">
-            <button type="submit" disabled={saving} className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-xl shadow-lg transition-all disabled:opacity-70 disabled:cursor-not-allowed">
+            <button type="submit" disabled={saving} className="bg-[#242320] hover:bg-black dark:bg-[#eeece6] dark:hover:bg-white text-[#f5f3ee] dark:text-[#0d0d0e] text-white font-bold py-3 px-8 rounded-sm shadow-lg transition-all disabled:opacity-70 disabled:cursor-not-allowed">
               {saving ? 'Saving...' : 'Save Profile'}
             </button>
           </div>

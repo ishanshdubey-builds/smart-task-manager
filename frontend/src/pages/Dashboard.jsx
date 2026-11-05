@@ -73,7 +73,7 @@ const CalendarWidget = () => {
   const dates = Array.from({length: daysInMonth}, (_, i) => i + 1);
 
   return (
-    <div className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-6">
+    <div className="bg-transparent border-t border-white/[0.08] p-6">
       <div className="flex justify-between items-center mb-6">
         <h3 className="text-lg font-bold text-white">Calendar</h3>
         <span className="text-gray-400 text-sm font-medium">{today.toLocaleString('default', { month: 'long', year: 'numeric' })}</span>
@@ -86,9 +86,9 @@ const CalendarWidget = () => {
         {dates.map(date => (
           <div 
             key={date} 
-            className={`w-8 h-8 flex items-center justify-center rounded-full mx-auto ${
+            className={`w-8 h-8 flex items-center justify-center rounded-sm mx-auto ${
               date === today.getDate() 
-                ? 'bg-purple-500 text-white font-bold shadow-[0_0_15px_rgba(139,92,246,0.6)]' 
+                ? 'bg-[#b9a47b] text-white font-bold shadow-[0_0_15px_rgba(139,92,246,0.6)]' 
                 : 'text-gray-300 hover:bg-white/10 cursor-pointer transition-colors'
             }`}
           >
@@ -221,8 +221,8 @@ export default function Dashboard() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-[#0B0F19]">
-        <svg className="animate-spin h-10 w-10 text-purple-500 mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+      <div className="min-h-screen flex flex-col items-center justify-center bg-[#0d0d0e]">
+        <svg className="animate-spin h-10 w-10 text-[#b9a47b] mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
           <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
           <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
         </svg>
@@ -237,7 +237,7 @@ export default function Dashboard() {
             <StatCard 
               title="Total Tasks" value={totalTasks} 
               icon={<svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>}
-              colorClass="bg-purple-500/20 text-purple-400"
+              colorClass="bg-[#b9a47b]/20 text-purple-400"
               shadowClass="shadow-[0_0_30px_rgba(139,92,246,0.1)]"
             />
             <StatCard 
@@ -266,7 +266,7 @@ export default function Dashboard() {
             {/* TASKS COLUMN */}
             <div className="flex-1 min-w-0 max-w-full overflow-hidden space-y-6">
               
-              <div className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-6 overflow-hidden">
+              <div className="bg-transparent border-y border-white/[0.08] py-6 overflow-hidden">
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
                   <h2 className="text-xl font-bold text-white tracking-wide">Tasks for Today</h2>
                   <div className="flex gap-2">
@@ -276,7 +276,7 @@ export default function Dashboard() {
                         onClick={() => setFilter(f)}
                         className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                           filter === f 
-                            ? 'bg-purple-500/20 text-purple-400 border border-purple-500/30' 
+                            ? 'bg-[#b9a47b]/10 text-[#c8b58f] border border-[#b9a47b]/25' 
                             : 'text-gray-400 hover:text-white hover:bg-white/5 border border-transparent'
                         }`}
                       >
@@ -288,7 +288,7 @@ export default function Dashboard() {
 
                 {/* ADD TASK FORM */}
                 <form onSubmit={handleCreateTask} className="mb-6 flex gap-3">
-                  <div className="flex-1 bg-white/5 border border-white/10 rounded-xl flex items-center px-4 focus-within:border-purple-500/50 focus-within:ring-1 focus-within:ring-purple-500/50 transition-all">
+                  <div className="flex-1 bg-white/[0.025] border border-white/[0.08] rounded-sm flex items-center px-4 focus-within:border-[#b9a47b]/60 transition-all">
                     <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"></path></svg>
                     <input
                       type="text"
@@ -312,7 +312,7 @@ export default function Dashboard() {
                       placeholder="Assignee Email"
                       value={newTask.assignedToEmail}
                       onChange={(e) => setNewTask({...newTask, assignedToEmail: e.target.value})}
-                      className="w-48 p-3 bg-white/5 border border-white/10 rounded-xl text-white outline-none"
+                      className="w-48 p-3 bg-white/[0.025] border border-white/[0.08] rounded-sm text-white outline-none"
                     />
                   )}
                   <input 
@@ -325,7 +325,7 @@ export default function Dashboard() {
                   <button
                     type="submit"
                     disabled={creatingTask || !newTask.title.trim()}
-                    className="bg-purple-600 hover:bg-purple-500 disabled:bg-purple-600/50 px-6 font-bold rounded-xl shadow-[0_0_20px_rgba(139,92,246,0.3)] transition-all"
+                    className="bg-[#e9e5dc] hover:bg-white disabled:bg-[#e9e5dc]/50 text-[#171715] px-6 font-bold rounded-xl shadow-[0_0_20px_rgba(139,92,246,0.3)] transition-all"
                   >
                     Add
                   </button>
@@ -352,7 +352,7 @@ export default function Dashboard() {
                           {groupItems.map(task => (
                             <div 
                               key={task._id} 
-                              className="group relative overflow-hidden z-10 flex items-center justify-between p-4 bg-white/[0.02] border border-white/5 rounded-xl hover:bg-white/[0.05] hover:border-white/10 transition-all duration-200"
+                              className="group relative overflow-hidden z-10 flex items-center justify-between p-4 bg-white/[0.02] border border-white/5 rounded-sm hover:bg-white/[0.04] hover:border-white/10 transition-all duration-200"
                             >
                               <div className="flex items-center gap-4 flex-1">
                                 <button 
@@ -372,7 +372,7 @@ export default function Dashboard() {
                                   </h4>
                                   <div className="flex items-center gap-2 mt-1">
                                     <span className={`text-[10px] uppercase tracking-wider font-bold px-2 py-0.5 rounded flex items-center ${
-                                      task.type === 'team' ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20' : 'bg-purple-500/10 text-purple-400 border border-purple-500/20'
+                                      task.type === 'team' ? 'bg-white/[0.04] text-zinc-300 border border-white/[0.08]' : 'bg-white/[0.04] text-zinc-300 border border-white/[0.08]'
                                     }`}>
                                       {task.type}
                                     </span>
@@ -386,8 +386,8 @@ export default function Dashboard() {
                               </div>
 
                               <div className="flex items-center gap-4">
-                                <span className={`text-xs font-semibold px-3 py-1 rounded-full ${
-                                  task.completed ? 'bg-green-500/10 text-green-400' : 'bg-orange-500/10 text-orange-400'
+                                <span className={`text-xs font-semibold px-3 py-1 rounded-sm ${
+                                  task.completed ? 'bg-white/[0.04] text-zinc-300' : 'bg-[#b9a47b]/10 text-[#c9b58e]'
                                 }`}>
                                   {task.completed ? 'Completed' : 'Pending'}
                                 </span>
@@ -415,8 +415,8 @@ export default function Dashboard() {
               <CalendarWidget />
 
               {/* Productivity Line Chart */}
-              <div className="p-4 rounded-xl bg-white/5 dark:bg-[#111827] backdrop-blur-lg border border-white/10 overflow-hidden">
-                <h3 className="text-lg font-bold text-white mb-4">Productivity Trend</h3>
+              <div className="p-4 rounded-xl bg-transparent border-t border-white/[0.08] overflow-hidden">
+                <h3 className="text-lg font-bold text-zinc-100 mb-4">Productivity Trend</h3>
                 <div className="relative h-48 w-full">
                   <Line 
                     options={{ 
@@ -433,9 +433,9 @@ export default function Dashboard() {
                       datasets: [{
                         label: 'Score',
                         data: [40, 50, 70, 65, 80, 90, productivity], // mock trend ending at actual productivity
-                        borderColor: '#8B5CF6',
-                        backgroundColor: 'rgba(139, 92, 246, 0.1)',
-                        fill: true,
+                        borderColor: '#b9a47b',
+                        backgroundColor: 'rgba(185, 164, 123, 0)',
+                        fill: false,
                         borderWidth: 2,
                       }]
                     }} 
@@ -444,8 +444,8 @@ export default function Dashboard() {
               </div>
 
               {/* Completion Doughnut */}
-              <div className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-6">
-                <h3 className="text-lg font-bold text-white mb-4">Task Completion</h3>
+              <div className="bg-transparent border-t border-white/[0.08] p-6">
+                <h3 className="text-lg font-bold text-zinc-100 mb-4">Task Completion</h3>
                 <div className="relative h-48 w-full flex justify-center">
                   <Doughnut 
                     options={{ 

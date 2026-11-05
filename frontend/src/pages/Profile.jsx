@@ -148,7 +148,7 @@ export default function Profile() {
                 type="file"
                 accept="image/png,image/jpeg,image/webp,image/gif"
                 onChange={handleAvatarUpload}
-                className="block w-full text-sm text-gray-600 dark:text-gray-300 file:mr-4 file:rounded-sm file:border-0 file:bg-purple-600 file:px-4 file:py-3 file:font-semibold file:text-white hover:file:bg-purple-700 file:cursor-pointer"
+                className="block w-full text-sm text-gray-600 dark:text-gray-300 file:mr-4 file:rounded-sm file:border-0 file:bg-[#b9a47b]/600 file:px-4 file:py-3 file:font-semibold file:text-white hover:file:bg-[#b9a47b]/700 file:cursor-pointer"
               />
               <p className="mt-2 text-xs text-zinc-500 dark:text-zinc-400">
                 Choose an image from your device (JPG, PNG, WebP, or GIF; up to 5 MB). It will be resized before saving.

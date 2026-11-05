@@ -45,7 +45,7 @@ export default function TeamTasks() {
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Team Tasks</h2>
       </div>
 
-      <div className="bg-white dark:bg-white/5 backdrop-blur-lg border border-gray-200 dark:border-white/10 rounded-3xl overflow-hidden shadow-sm">
+      <div className="bg-transparent border-y border-black/10 dark:border-white/10 overflow-hidden shadow-sm">
         
         {/* TABS */}
         <div className="flex border-b border-gray-200 dark:border-white/10">
@@ -64,7 +64,7 @@ export default function TeamTasks() {
             onClick={() => setTab('created')}
             className={`flex-1 py-4 text-sm font-bold uppercase tracking-wider transition-colors ${
               tab === 'created' 
-                ? 'bg-purple-50 dark:bg-purple-500/10 text-purple-600 dark:text-purple-400 border-b-2 border-purple-600 dark:border-purple-500' 
+                ? 'bg-purple-50 dark:bg-purple-500/10 text-[#9d855c] dark:text-[#c9b58e] border-b-2 border-purple-600 dark:border-purple-500' 
                 : 'text-gray-500 hover:bg-gray-50 dark:hover:bg-white/5'
             }`}
           >
@@ -82,7 +82,7 @@ export default function TeamTasks() {
           ) : (
             <div className="space-y-4">
               {activeTasks.map(task => (
-                <div key={task._id} className="flex items-center justify-between p-4 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl hover:bg-gray-100 dark:hover:bg-white/10 transition-all">
+                <div key={task._id} className="flex items-center justify-between p-4 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-sm hover:bg-gray-100 dark:hover:bg-white/10 transition-all">
                   <div className="flex items-center gap-4">
                      <button 
                         onClick={() => toggleComplete(task._id, task.completed)}

@@ -31,13 +31,13 @@ export default function Layout({ children }) {
   }, [])
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-[#0B0F19] text-gray-900 dark:text-white transition-colors duration-300">
+    <div className="min-h-screen bg-[#f5f3ee] dark:bg-[#0d0d0e] text-[#242320] dark:text-[#eeece6] transition-colors duration-300">
       <Sidebar streak={user?.streak || 1} />
-      <div className="ml-64 min-h-screen flex flex-col">
-        <div className="p-6">
+      <div className="md:ml-[248px] min-h-screen flex flex-col">
+        <div className="px-5 sm:px-8 lg:px-12 pt-7">
           <Header user={user} setUser={setUser} />
         </div>
-        <main className="p-6 pt-0 overflow-y-auto flex-1 custom-scrollbar">
+        <main className="px-5 sm:px-8 lg:px-12 pb-12 pt-2 overflow-y-auto flex-1 custom-scrollbar">
           {children}
         </main>
       </div>

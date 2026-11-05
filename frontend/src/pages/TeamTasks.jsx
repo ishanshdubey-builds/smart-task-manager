@@ -40,9 +40,9 @@ export default function TeamTasks() {
   if (loading) return <div className="p-8 text-center text-gray-500">Loading team tasks...</div>
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-10"><div><p className="eyebrow mb-3">Shared commitments / collaboration</p><h2 className="editorial-display text-4xl text-zinc-900 dark:text-[#eeece6] sm:text-5xl">Team tasks</h2></div>
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Team Tasks</h2>
+        
       </div>
 
       <div className="bg-transparent border-y border-black/10 dark:border-white/10 overflow-hidden shadow-sm">
@@ -53,23 +53,23 @@ export default function TeamTasks() {
             onClick={() => setTab('assigned')}
             className={`flex-1 py-4 text-sm font-bold uppercase tracking-wider transition-colors ${
               tab === 'assigned' 
-                ? 'bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-500' 
+                ? 'bg-[#b9a47b]/10 text-[#9d855c] dark:text-[#c9b58e] border-b-2 border-[#b9a47b]' 
                 : 'text-gray-500 hover:bg-gray-50 dark:hover:bg-white/5'
             }`}
           >
             Assigned To Me
-            <span className="ml-2 bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-2 py-0.5 rounded-full text-xs">{assignedTasks.length}</span>
+            <span className="ml-2 bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-2 py-0.5 rounded-sm text-xs">{assignedTasks.length}</span>
           </button>
           <button 
             onClick={() => setTab('created')}
             className={`flex-1 py-4 text-sm font-bold uppercase tracking-wider transition-colors ${
               tab === 'created' 
-                ? 'bg-purple-50 dark:bg-purple-500/10 text-[#9d855c] dark:text-[#c9b58e] border-b-2 border-purple-600 dark:border-purple-500' 
+                ? 'bg-[#b9a47b]/10 text-[#9d855c] dark:text-[#c9b58e] border-b-2 border-[#b9a47b]' 
                 : 'text-gray-500 hover:bg-gray-50 dark:hover:bg-white/5'
             }`}
           >
             Created By Me
-            <span className="ml-2 bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-2 py-0.5 rounded-full text-xs">{createdTasks.length}</span>
+            <span className="ml-2 bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-2 py-0.5 rounded-sm text-xs">{createdTasks.length}</span>
           </button>
         </div>
 
@@ -87,7 +87,7 @@ export default function TeamTasks() {
                      <button 
                         onClick={() => toggleComplete(task._id, task.completed)}
                         className={`w-6 h-6 rounded border-2 flex items-center justify-center transition-all ${
-                          task.completed ? 'bg-green-500 border-green-500 text-white' : 'border-gray-400 hover:border-green-500'
+                          task.completed ? 'bg-[#b9a47b] border-[#b9a47b] text-[#111]' : 'border-gray-400 hover:border-green-500'
                         }`}
                       >
                         {task.completed && <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7"></path></svg>}
@@ -103,8 +103,8 @@ export default function TeamTasks() {
                         )}
                       </div>
                   </div>
-                  <span className={`text-xs font-bold px-3 py-1 rounded-full ${
-                    task.completed ? 'bg-green-100 text-green-600 dark:bg-green-500/20 dark:text-green-400' : 'bg-orange-100 text-orange-600 dark:bg-orange-500/20 dark:text-orange-400'
+                  <span className={`text-xs font-bold px-3 py-1 rounded-sm ${
+                    task.completed ? 'bg-white/[0.04] text-zinc-500 dark:text-zinc-300' : 'bg-[#b9a47b]/10 text-[#9d855c] dark:text-[#c9b58e]'
                   }`}>
                     {task.completed ? 'Done' : 'In Progress'}
                   </span>

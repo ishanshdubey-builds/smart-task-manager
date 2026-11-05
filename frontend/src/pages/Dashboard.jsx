@@ -89,7 +89,7 @@ const CalendarWidget = () => {
             className={`w-8 h-8 flex items-center justify-center rounded-sm mx-auto ${
               date === today.getDate() 
                 ? 'bg-[#b9a47b] text-[#111] font-bold' 
-                : 'text-gray-300 hover:bg-white/10 cursor-pointer transition-colors'
+                : 'text-zinc-400 hover:bg-white/[0.04] cursor-pointer transition-colors'
             }`}
           >
             {date}
@@ -347,7 +347,7 @@ export default function Dashboard() {
 
                       return (
                         <div key={groupName} className="space-y-3">
-                          <h4 className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-3">
+                          <h4 className="text-xs font-bold text-zinc-500 uppercase tracking-[.16em] mb-3">
                             {groupName}
                           </h4>
                           {groupItems.map(task => (

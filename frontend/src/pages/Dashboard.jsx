@@ -75,8 +75,8 @@ const CalendarWidget = () => {
   return (
     <div className="bg-transparent border-t border-white/[0.08] p-6">
       <div className="flex justify-between items-center mb-6">
-        <h3 className="text-lg font-bold text-white">Calendar</h3>
-        <span className="text-gray-400 text-sm font-medium">{today.toLocaleString('default', { month: 'long', year: 'numeric' })}</span>
+        <h3 className="editorial-display text-2xl text-zinc-100">Calendar</h3>
+        <span className="text-zinc-500 text-[10px] font-medium uppercase tracking-wider">{today.toLocaleString('default', { month: 'long', year: 'numeric' })}</span>
       </div>
       <div className="grid grid-cols-7 gap-2 mb-2 text-center text-xs font-semibold text-gray-500 uppercase">
         {days.map(d => <div key={d}>{d}</div>)}
@@ -269,13 +269,13 @@ export default function Dashboard() {
               
               <div className="bg-transparent border-y border-white/[0.08] py-6 overflow-hidden">
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
-                  <h2 className="text-xl font-bold text-white tracking-wide">Tasks for Today</h2>
+                  <h2 className="editorial-display text-2xl text-zinc-100">Tasks for Today</h2>
                   <div className="flex gap-2">
                     {['All', 'Pending', 'Completed', 'Assigned to me'].map(f => (
                       <button
                         key={f}
                         onClick={() => setFilter(f)}
-                        className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                        className={`px-3 py-1.5 rounded-sm text-[10px] uppercase tracking-wider font-semibold transition-all ${
                           filter === f 
                             ? 'bg-[#b9a47b]/10 text-[#c8b58f] border border-[#b9a47b]/25' 
                             : 'text-gray-400 hover:text-white hover:bg-white/5 border border-transparent'
@@ -302,7 +302,7 @@ export default function Dashboard() {
                   <select 
                     value={newTask.type}
                     onChange={(e) => setNewTask({...newTask, type: e.target.value})}
-                    className="bg-white/5 border border-white/10 text-white rounded-xl px-4 outline-none appearance-none cursor-pointer"
+                    className="bg-white/[0.025] border border-white/[0.08] text-zinc-200 rounded-sm px-4 outline-none appearance-none cursor-pointer"
                   >
                     <option value="personal" className="bg-gray-900 text-white">Personal</option>
                     <option value="team" className="bg-gray-900 text-white">Team</option>
@@ -321,12 +321,12 @@ export default function Dashboard() {
                     min={todayStr}
                     value={newTask.dueDate}
                     onChange={(e) => setNewTask({...newTask, dueDate: e.target.value})}
-                    className="bg-white/5 border border-white/10 text-white rounded-xl px-4 py-3 outline-none"
+                    className="bg-white/[0.025] border border-white/[0.08] text-zinc-200 rounded-sm px-4 py-3 outline-none"
                   />
                   <button
                     type="submit"
                     disabled={creatingTask || !newTask.title.trim()}
-                    className="bg-[#e9e5dc] hover:bg-white disabled:bg-[#e9e5dc]/50 text-[#171715] px-6 font-bold rounded-xl shadow-[0_0_20px_rgba(139,92,246,0.3)] transition-all"
+                    className="bg-[#e9e5dc] hover:bg-white disabled:bg-[#e9e5dc]/50 text-[#171715] px-6 font-bold rounded-xl shadow-[0_0_20px_rgba(185,164,123,0.12)] transition-all"
                   >
                     Add
                   </button>
@@ -358,9 +358,9 @@ export default function Dashboard() {
                               <div className="flex items-center gap-4 flex-1">
                                 <button 
                                   onClick={() => handleToggleComplete(task._id, task.completed)}
-                                  className={`w-6 h-6 rounded-md border-2 flex items-center justify-center transition-all ${
+                                  className={`w-6 h-6 rounded-sm border flex items-center justify-center transition-all ${
                                     task.completed 
-                                      ? 'bg-green-500 border-green-500 text-white' 
+                                      ? 'bg-[#b9a47b] border-[#b9a47b] text-[#111]' 
                                       : 'border-gray-500 hover:border-green-400'
                                   }`}
                                 >
@@ -417,7 +417,7 @@ export default function Dashboard() {
 
               {/* Productivity Line Chart */}
               <div className="p-4 bg-transparent border-t border-white/[0.08] overflow-hidden">
-                <h3 className="text-lg font-bold text-zinc-100 mb-4">Productivity Trend</h3>
+                <h3 className="editorial-display text-2xl text-zinc-100 mb-4">Productivity trend</h3>
                 <div className="relative h-48 w-full">
                   <Line 
                     options={{ 
@@ -446,19 +446,19 @@ export default function Dashboard() {
 
               {/* Completion Doughnut */}
               <div className="bg-transparent border-t border-white/[0.08] p-6">
-                <h3 className="text-lg font-bold text-zinc-100 mb-4">Task Completion</h3>
+                <h3 className="editorial-display text-2xl text-zinc-100 mb-4">Task completion</h3>
                 <div className="relative h-48 w-full flex justify-center">
                   <Doughnut 
                     options={{ 
                       maintainAspectRatio: false,
                       cutout: '75%',
-                      plugins: { legend: { position: 'bottom', labels: { color: '#9CA3AF', usePointStyle: true } } }
+                      plugins: { legend: { position: 'bottom', labels: { color: '#a19d93', usePointStyle: true, boxWidth: 7, font: { family: 'DM Sans', size: 10 } } } }
                     }}
                     data={{
                       labels: ['Completed', 'Pending'],
                       datasets: [{
                         data: totalTasks === 0 ? [0, 1] : [completedTasks, pendingTasks],
-                        backgroundColor: totalTasks === 0 ? ['#1F2937'] : ['#10B981', '#F97316'],
+                        backgroundColor: totalTasks === 0 ? ['#393936'] : ['#b9a47b', '#393936'],
                         borderWidth: 0,
                         hoverOffset: 4
                       }]
@@ -466,7 +466,7 @@ export default function Dashboard() {
                   />
                   {totalTasks > 0 && (
                     <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none mt-[-20px]">
-                      <span className="text-3xl font-bold text-white">{Math.round((completedTasks/totalTasks)*100)}%</span>
+                      <span className="editorial-display text-4xl text-zinc-100">{Math.round((completedTasks/totalTasks)*100)}%</span>
                     </div>
                   )}
                 </div>

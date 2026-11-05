@@ -11,9 +11,9 @@ export default function Login() {
     e.preventDefault()
     try {
       const res = await API.post('auth/login', formData)
-       localStorage.setItem('token', res.data.token)
-       localStorage.setItem('user', JSON.stringify(res.data.user))
-       localStorage.setItem('streak', res.data.user.streak)
+      localStorage.setItem('token', res.data.token)
+      localStorage.setItem('user', JSON.stringify(res.data.user))
+      localStorage.setItem('streak', res.data.user.streak)
       navigate('/dashboard')
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed')
@@ -24,10 +24,7 @@ export default function Login() {
     <div className="flex min-h-screen items-stretch bg-[#f5f3ee] text-[#242320] transition-colors dark:bg-[#0d0d0e] dark:text-[#eeece6]">
       <div className="hidden w-1/2 flex-col justify-between border-r border-black/10 bg-[#eeece5] p-12 dark:border-white/[0.07] dark:bg-[#111113] lg:flex xl:p-20">
         <Link to="/" className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[.16em]"><span className="flex h-8 w-8 items-center justify-center border border-[#b9a47b] text-[#9d855c]"><span className="editorial-display text-xl">S</span></span>Stillpoint</Link>
-        <div className="max-w-xl">
-          <p className="eyebrow mb-7">Return to your practice</p>
-          <h1 className="editorial-display text-6xl leading-[1.08]">A clear space for the work that matters.</h1>
-        </div>
+        <div className="max-w-xl"><p className="eyebrow mb-7">Return to your practice</p><h1 className="editorial-display text-6xl leading-[1.08]">A clear space for the work that matters.</h1></div>
         <p className="text-[10px] uppercase tracking-[.18em] text-[#8a867d]">Personal focus / Team clarity / Steady progress</p>
       </div>
       <div className="flex w-full items-center justify-center px-6 py-16 lg:w-1/2">
@@ -36,18 +33,10 @@ export default function Login() {
           <p className="eyebrow mb-4">Account access</p>
           <h2 className="editorial-display mb-3 text-4xl">Welcome back.</h2>
           <p className="mb-10 text-sm leading-6 text-[#77746c] dark:text-zinc-400">Sign in and pick up where you left off.</p>
-
           {error && <div className="mb-6 border-l-2 border-red-500 bg-red-500/[0.06] px-4 py-3 text-sm text-red-500">{error}</div>}
-
           <form onSubmit={handleLogin} className="space-y-6">
-            <div>
-              <label className="mb-2 block text-[11px] font-semibold uppercase tracking-[.14em] text-[#77746c] dark:text-zinc-400">Email address</label>
-              <input type="email" className="workspace-input px-4 py-3.5 text-sm" placeholder="you@example.com" onChange={(e) => setFormData({...formData, email: e.target.value})} required />
-            </div>
-            <div>
-              <label className="mb-2 block text-[11px] font-semibold uppercase tracking-[.14em] text-[#77746c] dark:text-zinc-400">Password</label>
-              <input type="password" className="workspace-input px-4 py-3.5 text-sm" placeholder="Your password" onChange={(e) => setFormData({...formData, password: e.target.value})} required />
-            </div>
+            <div><label className="mb-2 block text-[11px] font-semibold uppercase tracking-[.14em] text-[#77746c] dark:text-zinc-400">Email address</label><input type="email" className="workspace-input px-4 py-3.5 text-sm" placeholder="you@example.com" onChange={(e) => setFormData({...formData, email: e.target.value})} required /></div>
+            <div><label className="mb-2 block text-[11px] font-semibold uppercase tracking-[.14em] text-[#77746c] dark:text-zinc-400">Password</label><input type="password" className="workspace-input px-4 py-3.5 text-sm" placeholder="Your password" onChange={(e) => setFormData({...formData, password: e.target.value})} required /></div>
             <button className="editorial-button mt-2 w-full bg-[#242320] py-4 text-xs font-semibold uppercase tracking-[.16em] text-[#f5f3ee] hover:bg-black dark:bg-[#eeece6] dark:text-[#0d0d0e] dark:hover:bg-white">Sign in to workspace <span className="ml-2">↗</span></button>
           </form>
           <p className="mt-9 text-center text-sm text-[#77746c] dark:text-zinc-400">New here? <Link to="/register" className="font-semibold text-[#9d855c] underline underline-offset-4">Create an account</Link></p>

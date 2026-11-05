@@ -23,17 +23,12 @@ export default function CalendarView() {
     const clickedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day)
     const today = new Date()
     today.setHours(0,0,0,0)
-
     if (clickedDate < today) return
-
     setSelectedDate(clickedDate)
     setLoadingSelected(true)
-    
-    // Format to YYYY-MM-DD
     const yyyy = clickedDate.getFullYear()
     const mm = String(clickedDate.getMonth() + 1).padStart(2, '0')
     const dd = String(clickedDate.getDate()).padStart(2, '0')
-    
     try {
       const res = await API.get(`tasks/by-date?date=${yyyy}-${mm}-${dd}`)
       setSelectedTasks(res.data)
@@ -46,146 +41,75 @@ export default function CalendarView() {
 
   const daysInMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate()
   const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).getDay()
-  
   const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-  
-  const prevMonth = () => {
-    setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1))
-  }
-  
-  const nextMonth = () => {
-    setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1))
-  }
-
-  // Helper to find tasks for a specific day
+  const prevMonth = () => setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1))
+  const nextMonth = () => setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1))
   const getTasksForDay = (day) => {
     const d = new Date(currentDate.getFullYear(), currentDate.getMonth(), day)
     const dStr = d.toLocaleDateString('en-CA')
-    
-    return tasks.filter(t => {
-      if (!t.dueDate) return false
-      const tDateStr = t.dueDate.split('T')[0]
-      return tDateStr === dStr
-    })
+    return tasks.filter(t => t.dueDate && t.dueDate.split('T')[0] === dStr)
   }
-
   const blanks = Array.from({length: firstDayOfMonth}, (_, i) => i)
   const days = Array.from({length: daysInMonth}, (_, i) => i + 1)
   const today = new Date()
 
-  if (loading) return <div className="p-8 text-center text-gray-500">Loading calendar...</div>
+  if (loading) return <div className="p-8 text-center text-zinc-500">Loading calendar…</div>
 
   return (
-    <div className="space-y-8">
-      <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Calendar</h2>
-        <div className="flex items-center gap-4 bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 p-2 rounded-xl shadow-sm">
-          <button onClick={prevMonth} className="p-2 hover:bg-gray-100 dark:hover:bg-white/10 rounded-lg transition-colors">
-            <svg className="w-5 h-5 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"></path></svg>
-          </button>
-          <span className="font-bold text-gray-900 dark:text-white min-w-[120px] text-center">
-            {monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}
-          </span>
-          <button onClick={nextMonth} className="p-2 hover:bg-gray-100 dark:hover:bg-white/10 rounded-lg transition-colors">
-            <svg className="w-5 h-5 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path></svg>
-          </button>
+    <div className="space-y-10">
+      <div className="flex flex-wrap items-end justify-between gap-5">
+        <div><p className="eyebrow mb-3">Time / commitments</p><h2 className="editorial-display text-4xl dark:text-[#eeece6] sm:text-5xl">Calendar</h2></div>
+        <div className="flex items-center gap-5 border-y border-black/10 py-3 dark:border-white/10">
+          <button onClick={prevMonth} aria-label="Previous month" className="px-2 py-1 text-zinc-500 transition-colors hover:text-black dark:hover:text-white">←</button>
+          <span className="min-w-[145px] text-center text-[11px] font-semibold uppercase tracking-[.14em] text-zinc-700 dark:text-zinc-300">{monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}</span>
+          <button onClick={nextMonth} aria-label="Next month" className="px-2 py-1 text-zinc-500 transition-colors hover:text-black dark:hover:text-white">→</button>
         </div>
       </div>
-
-      <div className="bg-white dark:bg-white/5 backdrop-blur-lg border border-gray-200 dark:border-white/10 rounded-3xl p-6 shadow-sm overflow-hidden">
-        <div className="grid grid-cols-7 gap-4 mb-4">
-          {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
-            <div key={day} className="text-center font-bold text-gray-500 text-sm uppercase tracking-wider">{day}</div>
-          ))}
+      <div className="overflow-hidden border-y border-black/10 dark:border-white/10">
+        <div className="grid grid-cols-7 border-b border-black/10 dark:border-white/10">
+          {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => <div key={day} className="px-2 py-4 text-center text-[9px] font-semibold uppercase tracking-[.16em] text-zinc-500 sm:px-4 sm:text-left">{day}</div>)}
         </div>
-        
-        <div className="grid grid-cols-7 gap-4">
-          {blanks.map(b => (
-            <div key={`blank-${b}`} className="h-32 rounded-2xl bg-gray-50/50 dark:bg-white/[0.02] border border-gray-100 dark:border-white/5 opacity-50"></div>
-          ))}
-          
+        <div className="grid grid-cols-7">
+          {blanks.map(b => <div key={`blank-${b}`} className="min-h-[90px] border-b border-r border-black/[0.06] dark:border-white/[0.045] sm:min-h-[132px]" />)}
           {days.map(day => {
             const dayTasks = getTasksForDay(day)
             const isToday = day === today.getDate() && currentDate.getMonth() === today.getMonth() && currentDate.getFullYear() === today.getFullYear()
             const isSelected = selectedDate && day === selectedDate.getDate() && currentDate.getMonth() === selectedDate.getMonth() && currentDate.getFullYear() === selectedDate.getFullYear()
-            
             const cellDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day)
             const isPast = cellDate < new Date().setHours(0,0,0,0)
-
             return (
-              <div 
-                key={day} 
-                onClick={() => !isPast && handleDateClick(day)}
-                className={`h-32 rounded-2xl border p-2 flex flex-col transition-all overflow-hidden ${
-                  isPast 
-                    ? 'bg-gray-100/50 dark:bg-white/[0.02] border-gray-100 dark:border-white/5 opacity-40 cursor-not-allowed'
-                    : isSelected
-                    ? 'border-blue-500 bg-blue-50 dark:bg-blue-500/10 shadow-[0_0_15px_rgba(59,130,246,0.2)] cursor-pointer'
-                    : isToday 
-                    ? 'border-purple-500 bg-purple-50 dark:bg-purple-500/10 shadow-[0_0_15px_rgba(139,92,246,0.2)] cursor-pointer' 
-                    : 'border-gray-200 dark:border-white/10 bg-white dark:bg-transparent hover:border-gray-300 dark:hover:border-white/20 cursor-pointer'
-                }`}
-              >
-                <div className={`text-right font-bold text-sm mb-1 ${isToday ? 'text-purple-600 dark:text-purple-400' : 'text-gray-500 dark:text-gray-400'}`}>
-                  {day}
-                  {dayTasks.length > 0 && (
-                    <span className="ml-1 inline-flex items-center justify-center px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-gray-200 dark:bg-white/10 text-gray-800 dark:text-white">
-                      {dayTasks.length}
-                    </span>
-                  )}
+              <button type="button" key={day} onClick={() => !isPast && handleDateClick(day)} disabled={isPast}
+                className={`group min-h-[90px] border-b border-r border-black/[0.06] p-2 text-left transition-colors dark:border-white/[0.045] sm:min-h-[132px] sm:p-4 ${isPast ? 'cursor-not-allowed opacity-30' : 'hover:bg-black/[0.025] dark:hover:bg-white/[0.025]'} ${isSelected ? 'bg-[#b9a47b]/[0.10]' : ''}`}>
+                <div className="mb-2 flex items-start justify-between gap-1">
+                  <span className={`editorial-display text-xl sm:text-2xl ${isToday ? 'text-[#b9a47b]' : 'text-zinc-700 dark:text-zinc-300'}`}>{day}</span>
+                  {dayTasks.length > 0 && <span className="mt-1 border border-zinc-300 px-1.5 py-0.5 text-[9px] tabular-nums text-zinc-500 dark:border-zinc-700">{dayTasks.length}</span>}
                 </div>
-                <div className="flex-1 overflow-y-auto custom-scrollbar space-y-1">
-                  {dayTasks.slice(0, 3).map(task => (
-                    <div 
-                      key={task._id} 
-                      className={`text-[10px] font-semibold px-2 py-1 rounded truncate ${
-                        task.completed ? 'bg-green-100 text-green-700 dark:bg-green-500/20 dark:text-green-400 line-through' : 'bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-400'
-                      }`}
-                      title={task.title}
-                    >
-                      {task.title}
-                    </div>
-                  ))}
-                  {dayTasks.length > 3 && (
-                    <div className="text-[10px] text-gray-400 font-medium text-center">+{dayTasks.length - 3} more</div>
-                  )}
+                <div className="space-y-1 overflow-hidden">
+                  {dayTasks.slice(0, 2).map(task => <div key={task._id} className={`truncate border-l-2 pl-1.5 text-[9px] leading-5 sm:text-[10px] ${task.completed ? 'border-[#77746c] text-zinc-500 line-through' : 'border-[#b9a47b] text-zinc-600 dark:text-zinc-400'}`} title={task.title}>{task.title}</div>)}
+                  {dayTasks.length > 2 && <div className="text-[9px] text-zinc-500">+{dayTasks.length - 2} more</div>}
                 </div>
-              </div>
+              </button>
             )
           })}
         </div>
       </div>
-
-      {/* Selected Date Tasks View */}
       {selectedDate && (
-        <div className="bg-white dark:bg-white/5 backdrop-blur-lg border border-gray-200 dark:border-white/10 rounded-3xl p-6 shadow-sm">
-          <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6">
-            Tasks for {selectedDate.toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' })}
-          </h3>
-          
-          {loadingSelected ? (
-            <div className="py-8 text-center text-gray-500">Loading tasks...</div>
-          ) : selectedTasks.length === 0 ? (
-            <div className="py-8 text-center text-gray-500">No tasks due on this date.</div>
-          ) : (
-            <div className="space-y-4">
+        <section className="border-t border-black/10 pt-6 dark:border-white/10">
+          <p className="eyebrow mb-2">Selected date</p>
+          <h3 className="editorial-display mb-6 text-2xl dark:text-[#eeece6]">{selectedDate.toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' })}</h3>
+          {loadingSelected ? <div className="py-8 text-sm text-zinc-500">Loading tasks…</div> : selectedTasks.length === 0 ? <div className="py-8 text-sm text-zinc-500">No tasks due on this date.</div> : (
+            <div className="divide-y divide-black/10 dark:divide-white/10">
               {selectedTasks.map(task => (
-                <div key={task._id} className="flex items-center gap-4 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 p-4 rounded-xl">
-                  <div className={`w-3 h-3 rounded-full ${task.completed ? 'bg-green-500' : 'bg-orange-500'}`}></div>
-                  <div className="flex-1">
-                    <p className={`font-semibold ${task.completed ? 'text-gray-500 line-through' : 'text-gray-900 dark:text-white'}`}>{task.title}</p>
-                    <p className="text-xs text-gray-500">{task.type === 'team' ? 'Team Task' : 'Personal Task'}</p>
-                  </div>
-                  <span className={`text-xs font-bold px-3 py-1 rounded-full ${task.completed ? 'bg-green-100 text-green-600 dark:bg-green-500/20 dark:text-green-400' : 'bg-orange-100 text-orange-600 dark:bg-orange-500/20 dark:text-orange-400'}`}>
-                    {task.completed ? 'Done' : 'Pending'}
-                  </span>
+                <div key={task._id} className="flex items-center gap-4 py-4">
+                  <span className={`h-1.5 w-1.5 ${task.completed ? 'bg-[#77746c]' : 'bg-[#b9a47b]'}`} />
+                  <div className="min-w-0 flex-1"><p className={`text-sm font-medium ${task.completed ? 'text-zinc-500 line-through' : 'text-zinc-800 dark:text-zinc-200'}`}>{task.title}</p><p className="mt-1 text-[10px] uppercase tracking-wider text-zinc-500">{task.type === 'team' ? 'Team task' : 'Personal task'}</p></div>
+                  <span className="text-[10px] uppercase tracking-[.14em] text-zinc-500">{task.completed ? 'Done' : 'Pending'}</span>
                 </div>
               ))}
             </div>
           )}
-        </div>
+        </section>
       )}
-
     </div>
   )
 }

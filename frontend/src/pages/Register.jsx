@@ -18,49 +18,26 @@ export default function Register() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-[#0B0F19] flex items-center justify-center p-4 transition-colors">
-      <div className="w-full max-w-md bg-white dark:bg-white/5 backdrop-blur-xl border border-gray-200 dark:border-white/10 p-8 rounded-3xl shadow-xl dark:shadow-[0_0_40px_rgba(139,92,246,0.1)]">
-        
-        <div className="flex justify-center mb-6">
-          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-blue-600 flex items-center justify-center shadow-lg">
-            <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-          </div>
+    <div className="flex min-h-screen items-stretch bg-[#f5f3ee] text-[#242320] transition-colors dark:bg-[#0d0d0e] dark:text-[#eeece6]">
+      <div className="hidden w-1/2 flex-col justify-between border-r border-black/10 bg-[#eeece5] p-12 dark:border-white/[0.07] dark:bg-[#111113] lg:flex xl:p-20">
+        <Link to="/" className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[.16em]"><span className="flex h-8 w-8 items-center justify-center border border-[#b9a47b] text-[#9d855c]"><span className="editorial-display text-xl">S</span></span>Stillpoint</Link>
+        <div className="max-w-xl"><p className="eyebrow mb-7">Make a considered start</p><h1 className="editorial-display text-6xl leading-[1.08]">Build a steadier relationship with your time.</h1></div>
+        <p className="text-[10px] uppercase tracking-[.18em] text-[#8a867d]">Personal focus / Team clarity / Steady progress</p>
+      </div>
+      <div className="flex w-full items-center justify-center px-6 py-16 lg:w-1/2">
+        <div className="w-full max-w-[390px]">
+          <div className="mb-12 lg:hidden"><Link to="/" className="text-xs font-semibold uppercase tracking-[.16em]">Stillpoint</Link></div>
+          <p className="eyebrow mb-4">Create your account</p>
+          <h2 className="editorial-display mb-3 text-4xl">Start with clarity.</h2>
+          <p className="mb-10 text-sm leading-6 text-[#77746c] dark:text-zinc-400">Set up your account and make this space your own.</p>
+          {error && <div className="mb-6 border-l-2 border-red-500 bg-red-500/[0.06] px-4 py-3 text-sm text-red-500">{error}</div>}
+          <form onSubmit={handleRegister} className="space-y-6">
+            <div><label className="mb-2 block text-[11px] font-semibold uppercase tracking-[.14em] text-[#77746c] dark:text-zinc-400">Email address</label><input type="email" className="workspace-input px-4 py-3.5 text-sm" placeholder="you@example.com" onChange={(e) => setFormData({...formData, email: e.target.value})} required /></div>
+            <div><label className="mb-2 block text-[11px] font-semibold uppercase tracking-[.14em] text-[#77746c] dark:text-zinc-400">Password</label><input type="password" className="workspace-input px-4 py-3.5 text-sm" placeholder="Create a password" onChange={(e) => setFormData({...formData, password: e.target.value})} required /></div>
+            <button className="editorial-button mt-2 w-full bg-[#242320] py-4 text-xs font-semibold uppercase tracking-[.16em] text-[#f5f3ee] hover:bg-black dark:bg-[#eeece6] dark:text-[#0d0d0e] dark:hover:bg-white">Create account <span className="ml-2">↗</span></button>
+          </form>
+          <p className="mt-9 text-center text-sm text-[#77746c] dark:text-zinc-400">Already registered? <Link to="/login" className="font-semibold text-[#9d855c] underline underline-offset-4">Sign in</Link></p>
         </div>
-
-        <h2 className="text-3xl font-extrabold text-center mb-2 text-gray-900 dark:text-white tracking-tight">Join Workspace</h2>
-        <p className="text-center text-gray-500 dark:text-gray-400 mb-8 font-medium">Create an account to get started.</p>
-        
-        {error && <div className="bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-400 p-3 rounded-xl mb-6 text-sm font-semibold text-center border border-red-100 dark:border-red-500/20">{error}</div>}
-        
-        <form onSubmit={handleRegister} className="space-y-5">
-          <div>
-            <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Email Address</label>
-            <input 
-              type="email" 
-              className="w-full p-3.5 bg-gray-50 dark:bg-[#111827] border border-gray-200 dark:border-white/10 rounded-xl text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500 outline-none transition-all placeholder-gray-400"
-              placeholder="you@example.com"
-              onChange={(e) => setFormData({...formData, email: e.target.value})}
-              required 
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Password</label>
-            <input 
-              type="password" 
-              className="w-full p-3.5 bg-gray-50 dark:bg-[#111827] border border-gray-200 dark:border-white/10 rounded-xl text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500 outline-none transition-all placeholder-gray-400"
-              placeholder="••••••••"
-              onChange={(e) => setFormData({...formData, password: e.target.value})}
-              required 
-            />
-          </div>
-          <button className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 text-white p-3.5 rounded-xl font-bold text-lg shadow-lg dark:shadow-[0_0_20px_rgba(139,92,246,0.3)] transition-all transform hover:-translate-y-0.5">
-            Create Account
-          </button>
-        </form>
-
-        <p className="mt-8 text-center text-gray-500 dark:text-gray-400 font-medium">
-          Already have an account? <Link to="/login" className="text-purple-600 dark:text-purple-400 hover:text-purple-500 underline decoration-2 underline-offset-4">Sign in</Link>
-        </p>
       </div>
     </div>
   )

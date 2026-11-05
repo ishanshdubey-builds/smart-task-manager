@@ -1,15 +1,11 @@
-export default function StatCard({ title, value, icon, colorClass, shadowClass }) {
+export default function StatCard({ title, value }) {
   return (
-    <div className={`bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-6 flex flex-col justify-between transition-all hover:bg-white/10 ${shadowClass}`}>
-      <div className="flex justify-between items-start mb-6">
-        <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${colorClass}`}>
-          {icon}
-        </div>
+    <div className="relative flex min-h-[148px] flex-col justify-between border-t border-zinc-800/80 py-5 pr-4 dark:border-white/10">
+      <div className="flex items-start justify-between">
+        <p className="eyebrow">{title}</p>
+        <span className="h-1.5 w-1.5 bg-[#b9a47b]" />
       </div>
-      <div>
-        <h4 className="text-4xl font-extrabold text-white mb-2 tracking-tight">{value}</h4>
-        <p className="text-sm font-semibold text-gray-400 uppercase tracking-wider">{title}</p>
-      </div>
+      <p className="editorial-display text-5xl leading-none tracking-tight text-[#242320] dark:text-[#eeece6] sm:text-6xl">{value}</p>
     </div>
   )
 }

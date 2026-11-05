@@ -1,13 +1,20 @@
 import { NavLink, useNavigate } from 'react-router-dom'
 
+const links = [
+  { to: '/dashboard', label: 'Overview', icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="3.5" y="3.5" width="7" height="7"/><rect x="13.5" y="3.5" width="7" height="7"/><rect x="3.5" y="13.5" width="7" height="7"/><rect x="13.5" y="13.5" width="7" height="7"/></svg> },
+  { to: '/tasks', label: 'My tasks', icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M7 4.5h10M7 8.5h10M7 12.5h6M5 3.5h14v17H5z"/></svg> },
+  { to: '/calendar', label: 'Calendar', icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="3.5" y="5" width="17" height="15"/><path d="M7.5 3v4M16.5 3v4M3.5 9.5h17"/></svg> },
+  { to: '/team', label: 'Team space', icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3.5 20c.3-4 2.1-6 5.5-6s5.2 2 5.5 6M15 15c3.3-.2 5 1.5 5.5 4.5"/></svg> },
+  { to: '/analytics', label: 'Insights', icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M4 20V11h4v9M10 20V4h4v16M16 20v-7h4v7"/></svg> },
+]
+
 export default function Sidebar({ streak }) {
   const navigate = useNavigate()
-
-  const navClass = ({isActive}) => 
-    `flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all ${
-      isActive 
-        ? 'bg-purple-100 text-purple-600 dark:bg-purple-500/10 dark:text-purple-400 font-semibold border border-purple-200 dark:border-purple-500/20 shadow-sm dark:shadow-[0_0_20px_rgba(139,92,246,0.1)]' 
-        : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-white/5 border border-transparent'
+  const navClass = ({ isActive }) =>
+    `relative flex items-center gap-3 pl-4 pr-3 py-3 text-[13px] tracking-wide transition-colors border-l-2 ${
+      isActive
+        ? 'border-[#b9a47b] text-[#f0eee8] bg-white/[0.035] font-semibold'
+        : 'border-transparent text-zinc-500 hover:text-zinc-200 hover:bg-white/[0.025]'
     }`
 
   const handleLogout = () => {
@@ -18,54 +25,43 @@ export default function Sidebar({ streak }) {
   }
 
   return (
-    <aside className="w-64 h-screen fixed left-0 top-0 border-r border-gray-200 dark:border-white/10 bg-white dark:bg-[#0B0F19] flex flex-col justify-between hidden md:flex flex-shrink-0 transition-colors z-40 overflow-y-auto custom-scrollbar">
-      <div className="p-6">
-        <h1 className="text-xl font-bold text-gray-900 dark:text-white tracking-wide flex items-center gap-2 mb-10">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-blue-600 flex items-center justify-center shadow-md dark:shadow-[0_0_15px_rgba(139,92,246,0.4)]">
-            <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+    <aside className="hidden md:flex fixed left-0 top-0 z-40 h-screen w-[248px] flex-col justify-between border-r border-zinc-800/50 bg-[#0d0d0e] text-zinc-100">
+      <div className="px-7 pt-8">
+        <div className="mb-16 flex items-center gap-3">
+          <div className="flex h-8 w-8 items-center justify-center border border-[#b9a47b]/60 text-[#c9b58e]">
+            <span className="editorial-display text-xl">S</span>
           </div>
-          Workspace
-        </h1>
-
-        <nav className="space-y-2">
-          <NavLink to="/dashboard" className={navClass}>
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
-            Dashboard
-          </NavLink>
-          <NavLink to="/tasks" className={navClass}>
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
-            My Tasks
-          </NavLink>
-          <NavLink to="/calendar" className={navClass}>
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-            Calendar
-          </NavLink>
-          <NavLink to="/team" className={navClass}>
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-            Team Tasks
-          </NavLink>
-          <NavLink to="/analytics" className={navClass}>
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002-2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
-            Analytics
-          </NavLink>
-        </nav>
-      </div>
-
-      <div className="p-6">
-        <div className="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl p-4 mb-4 backdrop-blur-md">
-          <p className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider font-semibold mb-1">Current Streak</p>
-          <div className="flex items-center gap-2">
-            <span className="text-orange-500 dark:text-orange-400 text-xl">🔥</span>
-            <span className="text-gray-900 dark:text-white font-bold text-xl">{streak || 0} {streak === 1 ? 'Day' : 'Days'}</span>
+          <div>
+            <p className="text-[13px] font-semibold tracking-[.16em] uppercase">Stillpoint</p>
+            <p className="mt-0.5 text-[9px] tracking-[.2em] uppercase text-zinc-600">Task workspace</p>
           </div>
         </div>
 
-        <button 
+        <p className="eyebrow mb-4 pl-4">Workspace</p>
+        <nav className="space-y-1">
+          {links.map(link => (
+            <NavLink key={link.to} to={link.to} className={navClass}>
+              <span className="h-[17px] w-[17px] shrink-0">{link.icon}</span>
+              {link.label}
+            </NavLink>
+          ))}
+        </nav>
+      </div>
+
+      <div className="px-7 pb-7">
+        <div className="mb-5 border-y border-zinc-800/70 py-4">
+          <p className="eyebrow mb-2">Consistency record</p>
+          <div className="flex items-end justify-between">
+            <span className="editorial-display text-3xl text-zinc-100">{streak || 0}</span>
+            <span className="pb-1 text-[10px] uppercase tracking-[.16em] text-zinc-500">day streak</span>
+          </div>
+        </div>
+        <button
           onClick={handleLogout}
-          className="flex items-center justify-center w-full gap-2 px-4 py-3 rounded-xl text-gray-500 dark:text-gray-400 font-medium hover:text-red-500 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors border border-transparent hover:border-red-200 dark:hover:border-red-500/20"
+          className="flex w-full items-center gap-3 py-2 text-left text-[12px] tracking-wide text-zinc-500 transition-colors hover:text-zinc-100"
         >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
-          Logout
+          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M10 17l5-5-5-5m5 5H3m10-7V4a1 1 0 011-1h6a1 1 0 011 1v16a1 1 0 01-1 1h-6a1 1 0 01-1-1v-3"/></svg>
+          Sign out
         </button>
       </div>
     </aside>

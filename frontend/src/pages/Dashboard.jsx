@@ -88,7 +88,7 @@ const CalendarWidget = () => {
             key={date} 
             className={`w-8 h-8 flex items-center justify-center rounded-sm mx-auto ${
               date === today.getDate() 
-                ? 'bg-[#b9a47b] text-white font-bold shadow-[0_0_15px_rgba(139,92,246,0.6)]' 
+                ? 'bg-[#b9a47b] text-[#111] font-bold' 
                 : 'text-gray-300 hover:bg-white/10 cursor-pointer transition-colors'
             }`}
           >
@@ -231,37 +231,38 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
+      <div className="mb-2"><p className="eyebrow mb-3">Today / at a glance</p><h2 className="editorial-display text-4xl text-zinc-900 dark:text-[#eeece6] sm:text-5xl">A day in progress.</h2></div>
           {/* STATS ROW */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+          <div className="grid grid-cols-2 gap-x-8 gap-y-3 border-b border-black/10 pb-8 dark:border-white/10 lg:grid-cols-4">
             <StatCard 
               title="Total Tasks" value={totalTasks} 
               icon={<svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>}
-              colorClass="bg-[#b9a47b]/20 text-purple-400"
-              shadowClass="shadow-[0_0_30px_rgba(139,92,246,0.1)]"
+              colorClass="bg-[#b9a47b]/20 text-[#c9b58e]"
+              
             />
             <StatCard 
               title="Pending" value={pendingTasks} 
               icon={<svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>}
-              colorClass="bg-orange-500/20 text-orange-400"
-              shadowClass="shadow-[0_0_30px_rgba(249,115,22,0.1)]"
+              
+              
             />
             <StatCard 
               title="Completed" value={completedTasks} 
               icon={<svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>}
-              colorClass="bg-green-500/20 text-green-400"
-              shadowClass="shadow-[0_0_30px_rgba(34,197,94,0.1)]"
+              
+              
             />
             <StatCard 
               title="Current Streak" value={`${streak} ${streak === 1 ? 'Day' : 'Days'}`} 
               icon={<span className="text-2xl">🔥</span>}
-              colorClass="bg-orange-500/20 text-orange-400"
-              shadowClass="shadow-[0_0_30px_rgba(249,115,22,0.1)]"
+              
+              
             />
           </div>
 
           {/* MAIN GRID: Task List vs (Calendar + Charts) */}
-          <div className="flex flex-col lg:flex-row gap-8">
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_320px]">
             
             {/* TASKS COLUMN */}
             <div className="flex-1 min-w-0 max-w-full overflow-hidden space-y-6">
@@ -410,12 +411,12 @@ export default function Dashboard() {
             </div>
 
             {/* RIGHT COLUMN */}
-            <div className="w-full lg:w-[350px] shrink-0 space-y-8">
+            <div className="w-full min-w-0 space-y-8">
               
               <CalendarWidget />
 
               {/* Productivity Line Chart */}
-              <div className="p-4 rounded-xl bg-transparent border-t border-white/[0.08] overflow-hidden">
+              <div className="p-4 bg-transparent border-t border-white/[0.08] overflow-hidden">
                 <h3 className="text-lg font-bold text-zinc-100 mb-4">Productivity Trend</h3>
                 <div className="relative h-48 w-full">
                   <Line 
